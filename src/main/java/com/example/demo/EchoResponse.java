@@ -1,9 +1,9 @@
 package com.example.demo;
 
-public class HealthStatus {
+public class EchoResponse {
     private final String echo;
 
-    public HealthStatus(String echo) {
+    public EchoResponse(String echo) {
         this.echo = echo;
     }
 

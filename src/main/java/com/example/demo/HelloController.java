@@ -17,7 +17,10 @@ public class HelloController {
     }
 
     @PostMapping("/echo")
-    public HealthStatus checkHealth(@RequestBody HealthStatus inputStatus) {
-        return inputStatus;
+    public EchoResponse checkHealth(@RequestBody EchoRequest inputStatus) {
+        if (inputStatus.getEcho().isEmpty()) {
+            throw new IllegalArgumentException("The echo message cannot be empty.");
+        }
+        return new EchoResponse(inputStatus.getEcho());
     }
 }
