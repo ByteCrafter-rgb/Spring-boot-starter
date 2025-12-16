@@ -11,6 +11,7 @@ import com.example.demo.dto.EchoResponse;
 import com.example.demo.service.EchoService;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid;
 
 // 1. @RestController marks this class as capable of handling incoming web requests
 @RestController
@@ -23,7 +24,7 @@ public class HelloController {
     }
 
     @PostMapping("/echo")
-    public EchoResponse checkHealth(@RequestBody EchoRequest inputStatus) {
+    public EchoResponse checkHealth(@Valid @RequestBody EchoRequest inputStatus) {
         if (inputStatus.getEcho().isEmpty()) {
             throw new IllegalArgumentException("The echo message cannot be empty.");
         }
