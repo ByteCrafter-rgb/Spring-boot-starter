@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,15 +15,12 @@ public class DemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(PizzaRepository repository) {
+	public CommandLineRunner demo(UserRepository repository) {
 		return (args) -> {
-			Pizza p = new Pizza();
-			p.setName("Pepperoni Feast");
-			p.setPrice(15.50);
+			User user = repository.findAll().get(0);
 
-			repository.save(p);
-
-			System.out.println("🍕 Pizza saved to the database!");
+			repository.delete(user);
+			System.out.println("🍕 User saved to the database!");
 		};
 	}
 }
