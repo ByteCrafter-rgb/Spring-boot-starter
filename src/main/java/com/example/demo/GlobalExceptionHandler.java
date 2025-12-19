@@ -7,25 +7,26 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.example.demo.dto.ApiResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    // @ExceptionHandler(IllegalArgumentException.class)
-    // public ResponseEntity<ErrorResponse>
-    // handleIllegalArgument(IllegalArgumentException ex) {
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiResponse<Object>> handleStatusException(ResponseStatusException ex) {
 
-    // Object errorMessage = ex.getMessage();
+        ApiResponse<Object> errorResponse = new ApiResponse<>(
+                false,
+                ex.getReason(),
+                null);
 
-    // HttpStatus status = HttpStatus.BAD_REQUEST;
-
-    // ErrorResponse finalErrorBody = new ErrorResponse(status.value(),
-    // errorMessage, Instant.now());
-
-    // return new ResponseEntity<>(finalErrorBody, status);
-    // }
+        return new ResponseEntity<>(errorResponse, ex.getStatusCode());
+    }
 
     // @ExceptionHandler(MethodArgumentNotValidException.class)
     // public ResponseEntity<ErrorResponse>
